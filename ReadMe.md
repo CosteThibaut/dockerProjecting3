@@ -1,4 +1,4 @@
-#To run this project :
+# To run this project :
 
 * `docker-compose up`
 * The website is running at `localhost:5000`
