@@ -1,0 +1,27 @@
+
+// Creation juste du password (SHA512)
+CREATE TABLE USER (
+id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+username VARCHAR(30) NOT NULL,
+pwd CHAR(128) NOT NULL,
+droit INT NOT NULL,
+name VARCHAR(30) NOT NULL,
+surname VARCHAR(30) NOT NULL
+);
+
+// Creation simplifié
+CREATE TABLE USER (
+id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+username VARCHAR(30) NOT NULL,
+pwd VARCHAR(30) NOT NULL,
+droit INT NOT NULL,
+name VARCHAR(30) NOT NULL,
+surname VARCHAR(30) NOT NULL
+);
+
+
+
+128 chars : 'trtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtrtr'
+
+
+insert into user (username,pwd,droit,name,surname) values ('Jack','Jack31',5,'Jack','Dupont');

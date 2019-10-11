@@ -1,0 +1,54 @@
+/* Les Forms */
+.input-field input[type=text]:focus + label {
+	color: #2196f3 !important;
+}
+
+.input-field input[type=text]:focus {
+	border-bottom: 1px solid #2196f3 !important;
+	box-shadow: 0 1px 0 0 #2196f3 !important;
+}
+
+.input-field input[type=text].valid {
+	border-bottom: 1px solid #90caf9 !important;
+	box-shadow: 0 1px 0 0 #90caf9;
+}
+
+.input-field input[type=password]:focus + label {
+	color: #2196f3 !important;
+}
+
+.input-field input[type=password]:focus {
+	border-bottom: 1px solid #2196f3 !important;
+	box-shadow: 0 1px 0 0 #2196f3 !important;
+}
+
+.input-field input[type=password].valid {
+	border-bottom: 1px solid #90caf9 !important;
+	box-shadow: 0 1px 0 0 #90caf9;
+}
+
+.btn[type=submit]{
+	background-color: #2196f3 !important;
+}
+
+.btn[type=submit]:hover{
+	background-color: #42a5f5 !important;
+}
+
+/* Parties toujours présentes*/
+.page-footer{
+	bottom:0 !important;
+	left:0 !important;
+	width:100% !important;
+	height: 20vh !important;
+	background-color: #1565c0;
+}
+
+main{
+	margin: 0 !important;
+	height: 80vh;
+}
+
+nav{
+	background-color: #1565c0; 
+}

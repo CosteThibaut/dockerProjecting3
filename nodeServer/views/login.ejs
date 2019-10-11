@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Login</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/login.css">
+</head>
+<body class="blue lighten-3">
+
+	<main class="row">
+		<div class="col m6 s12" id="left-part">
+			<img class="responsive-img" id="logo" src="img/logo.png">
+			<h1 class="grey-text center text-lighten-3">Connexion</h1>
+			<h3 class="grey-text center text-lighten-3"> veuillez vous connecter</h3>
+		</div>
+   	<form class="col m6 s12 white" id="form-login" action="/login" method="post">
+      <div class="input-field col m10 s12 offset-l1">
+      	<input id="userName" name="username" type="text" class="validate">
+      	<label for="userName">Nom d'utilisateur</label>
+      </div>
+      <div class="input-field col m10 s12 offset-l1">
+      	<input id="password" name="pwd" type="password" class="validate">
+      	<label for="password">Mot de passe</label>
+      </div>
+      <button class="btn waves-effect waves-light col offset-m1" type="submit">Se connecter</button>
+    </form>
+	</main>
+
+  <!--Modal d'afficage des alertes -->
+  <div id="modalalerte" class="modal">
+    <div class="modal-content">
+      <h4>Alerte</h4>
+      <p><% if (typeof alerte !== 'undefined'){%><% if (alerte !== 'none'){%><%= alerte %><%}%><%}%></p>
+    </div>
+    <div class="modal-footer">
+      <button href="" class="modal-close waves-effect waves-green btn-flat">OK</button>
+    </div>
+  </div>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script type="text/javascript">M.AutoInit();</script>
+  <% if (typeof alerte !== 'undefined'){%><% if (alerte !== 'none'){%><script type="text/javascript">M.Modal.getInstance(document.getElementById("modalalerte")).open();</script><%}%><%}%>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</body>
+</html>

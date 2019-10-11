@@ -1,0 +1,34 @@
+#form-login{
+	padding-top : 10%;
+	padding-left : 5%; 
+	padding-right : 5%; 
+	height:100vh !important; 
+}
+
+#left-part{
+	height:80vh !important; 	
+}
+
+#logo{
+	margin-top: 10%;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 30vh;
+}
+
+@media only screen and (max-width: 600px){
+	#form-login{
+		height: 50vh !important;
+	}
+	#left-part{
+		height:50vh !important; 	
+	}
+	h1{
+		display: none;
+	}
+	h3{
+		display: none;
+	}
+
+}

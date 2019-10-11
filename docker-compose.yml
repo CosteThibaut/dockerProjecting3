@@ -1,0 +1,36 @@
+version: "2"
+networks:
+  reseau:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.24.24.0/24
+services:
+  mysqlbase:
+    container_name: mysqlbase
+    hostname: mysqlbase
+    environment:
+      MYSQL_ROOT_PASSWORD: "jack"
+      MYSQL_DATABASE: "jack1"
+      MYSQL_ROOT_HOST: "%"
+    build:
+      context: ./mysqlbase/
+      dockerfile: mysqlbaseDockerfile
+    ports:
+      - '5001:3306'
+    networks:
+      - reseau
+  nodeserver:
+    container_name: nodeServer
+    hostname: nodeServer
+    build:
+      context: ./nodeServer/
+      dockerfile: nodeDockerfile
+    depends_on:
+      - mysqlbase
+    volumes:
+      - './nodeServer:/nodeServer'
+    ports:
+      - '5000:5000'
+    networks:
+      - reseau

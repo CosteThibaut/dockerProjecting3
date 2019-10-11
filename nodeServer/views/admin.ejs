@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Admin</title>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/admin.css">
+</head>
+<body>
+	<main class="row">
+		<div class="navbar-fixed">
+			<nav>
+			    <div class="nav-wrapper">
+			        <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+			      	<ul id="nav-mobile" class="left hide-on-med-and-down">
+			        	<li><a href="http://127.0.0.1:8080/">Accueil</a></li>
+			        	<li><a href="/Message">Messagerie<span class="new badge blue" data-badge-caption="">4</span></a></li>
+			        	<li><a href="/Project">Projets</a></li>
+			        	<li><a href="/Reunion">Réunions</a></li>
+			        	<% if(info[1]==1){%><li class="active"><a href="/Admin">Administrateur</a></li><%}%>
+			      	</ul>
+
+			      	<ul id="nav-mobile" class="right hide-on-med-and-down">
+			      		<li><%=info[2] %> <%= info[3]%></li>
+			        	<li><a href="/Setting"><i class="material-icons">settings</i></a></li>
+			        	<li><a href="/logout"><i class="material-icons">input</i></a></li>
+			      	</ul>
+			    </div>
+			</nav>
+		</div>
+
+		<!-- Navbar pour mobile -->
+		<ul class="sidenav" id="mobile-nav">
+	    	<li><a href="/">Accueil</a></li>
+	    	<li><a href="/Message">Messagerie<span class="new badge blue" data-badge-caption="">4</span></a></li>
+	    	<li><a href="/Project">Projets</a></li>
+	    	<li><a href="/Reunion">Réunions</a></li>
+	    	<% if(info[1]==1){%><li class="active"><a href="/Admin">Administrateur</a></li><%}%>
+	    	<li><a href="/Setting"><i class="material-icons">settings</i></a></li>
+	    	<li><a href="/logout"><i class="material-icons">input</i></a></li>
+	  	</ul>
+
+	  	<!-- Les differentes options Administrateur -->
+		<div class="row">
+		    <div class="col s12">
+		    	<ul class="tabs">
+		        	<li class="tab col m4 s12"><a class="pageChooser" href="#user">Utilisateurs</a></li>
+		      	</ul>
+		    </div>
+
+		    <!-- Gestion Utilisateur -->
+		    <div id="user" class="col s12">
+		    	<div id="manageUser" class="row">
+			        <div class="col s12 m4">
+			          	<b>Recherche d'utilisateur :</b>
+			          	<div class="input-field inline">
+			            	<input id="rechercheUserVal" oninput="rechercheUserFun(this.value)" type="text" class="validate">
+			            	<label for="rechercheUserVal">Utilisateur</label>
+			          	</div>
+			        </div>
+			        <div class="col s12 m4" id="newUserDiv">
+				    	<button class="btn" onclick="M.Modal.getInstance(document.getElementById('modalAddUser')).open()">Ajouter un utilisateur</button>
+			        </div>
+		    	</div>
+			    <table class="highlight">
+			        <thead>
+			          	<tr>
+			             	<th>Nom d'utilisateur</th>
+			              	<th>Nom</th>
+			              	<th>Prénom</th>
+			              	<th>Droits</th>
+			              	<th>Modifier</th>
+			         	</tr>
+			        </thead>
+
+			        <tbody id="listeUser">
+			        </tbody>
+			    </table>
+		    </div>
+		  </div>
+  	</main>
+
+  	<!-- LES MODALES -->
+  	<!-- Modification membre -->
+	<div id="modalModifUser" class="modal">
+    	<div class="modal-content">
+      		<h4>Modification d'un membre</h4>
+      		<form method="post" action="/Admin/modifUser">
+		     	<div class="input-field">
+		      		<input id="userUserNameform1" name="username" type="text" class="validate">
+		      		<label for="userUserNameform1">Nom d'utilisateur</label>
+		      	</div>
+		     	<div class="input-field">
+		      		<input id="userNameform1" name="name" type="text" class="validate">
+		      		<label for="userNameform1">Prénom</label>
+		      	</div>
+		     	<div class="input-field">
+		      		<input id="userSurNameform1" name="surname" type="text" class="validate">
+		      		<label for="userSurNameform1">Nom</label>
+		      	</div>
+		      	<div class="input-field">
+		      		<input id="userPasswordform1" name="pwd" type="password" class="validate">
+		      		<label for="userPasswordform1">Mot de passe</label>
+		      	</div>
+		      	<div class="input-field">
+				   	<select id="userDroitform1" class="browser-default" name="droit">
+				      	<option value="" disabled selected>Droits</option>
+				     	<option value="0">Utilisateur classique</option>
+				      	<option value="2">Gestion des publications</option>
+				      	<option value="1">Administrateur</option>
+				    </select>
+				</div>
+				<!-- L'id de la personne -->
+				<input id="userIdform1" type="text" name="id" style="display: none;">
+		      	<button class="btn waves-effect waves-light col offset-m1" type="submit">Valider les modifications</button>
+      		</form>
+    	</div>
+    	<div class="modal-footer">
+    		<button href="" class="modal-close waves-effect waves-green btn-flat">Annuler</button>
+    	</div>
+  	</div>
+
+  	<!-- Ajout d'un membre -->
+	<div id="modalAddUser" class="modal">
+    	<div class="modal-content">
+      		<h4>Ajout d'un membre</h4>
+      		<form method="post" action="/Admin/addUser">
+		     	<div class="input-field">
+		      		<input id="userUserNameform2" name="username" type="text" class="validate">
+		      		<label for="userUserNameform2">Nom d'utilisateur</label>
+		      	</div>
+		     	<div class="input-field">
+		      		<input id="userNameform2" name="name" type="text" class="validate">
+		      		<label for="userNameform2">Prénom</label>
+		      	</div>
+		     	<div class="input-field">
+		      		<input id="userSurNameform2" name="surname" type="text" class="validate">
+		      		<label for="userSurNameform2">Nom</label>
+		      	</div>
+		      	<div class="input-field">
+		      		<input id="userPasswordform2" name="pwd" type="password" class="validate">
+		      		<label for="userPasswordform2">Mot de passe</label>
+		      	</div>
+		      	<div class="input-field">
+				   	<select id="userDroitform2" class="browser-default" name="droit">
+				      	<option value="" disabled selected>Droits</option>
+				     	<option value="0">Utilisateur classique</option>
+				      	<option value="2">Gestion des publications</option>
+				      	<option value="1">Administrateur</option>
+				    </select>
+				</div>
+		      	<button class="btn waves-effect waves-light col offset-m1" type="submit">Ajouter le nouvel utilisateur</button>
+      		</form>
+    	</div>
+    	<div class="modal-footer">
+    		<button href="" class="modal-close waves-effect waves-green btn-flat">Annuler</button>
+    	</div>
+  	</div> 	
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script type="text/javascript">
+   		M.AutoInit();
+   		// Les utilisateurs
+   		var listeUserId = ["<%=users[0].id%>"<% for(var i = 1; i < users.length; i++){%>,"<%=users[i].id%>"<%}%>];
+   		var listeUserName = ["<%=users[0].name%>"<% for(var i = 1; i < users.length; i++){%>,"<%=users[i].name%>"<%}%>];
+   		var listeUserSurname = ["<%=users[0].surname%>"<% for(var i = 1; i < users.length; i++){%>,"<%=users[i].surname%>"<%}%>];
+   		var listeUserDroit = ["<%=users[0].droit%>"<% for(var i = 1; i < users.length; i++){%>,"<%=users[i].droit%>"<%}%>];
+   		var listeUserUserName = ["<%=users[0].username%>"<% for(var i = 1; i < users.length; i++){%>,"<%=users[i].username%>"<%}%>];
+
+   		// Affichages des utilisateurs
+   		function afficherUsers(a){
+   			var listeHTML = "";
+   			var droitAffiche = "Utilisateur simple";
+   			for (var i = 0; i < a.length; i++) {
+   				switch(listeUserDroit[a[i]]){
+   					case "1" :
+   						droitAffiche="Administrateur";
+   					break;
+   					case "2" :
+   						droitAffiche="Gestion des publications";
+   					break;
+   					default:
+   					droitAffiche = "Utilisateur simple";
+   				}
+
+   				listeHTML =listeHTML + "<tr>\n";
+   				listeHTML =listeHTML + "<td>"+listeUserUserName[a[i]]+"</td>\n";
+   				listeHTML =listeHTML + "<td>"+listeUserSurname[a[i]]+"</td>\n";
+   				listeHTML =listeHTML + "<td>"+listeUserName[a[i]]+"</td>\n";
+   				listeHTML =listeHTML + "<td>"+droitAffiche+"</td>\n";
+   				listeHTML =listeHTML + "<td><button class='btn' onclick='modifUserfun(this.dataset.id)' data-id='"+i+"'>Modifier</button></td>\n";
+	   			listeHTML=listeHTML+"</tr>"
+   			}
+   			document.getElementById("listeUser").innerHTML=listeHTML;
+   		}
+
+   		// Outil de recherche d'utilisateur
+   		function rechercheUserFun(val) {
+   			var regex = new RegExp(val,"i");
+   			var listeRetour = [];
+   			for (var i = 0; i < listeUserId.length; i++) {
+   				if((listeUserName[i].search(regex) != -1) || (listeUserSurname[i].search(regex) != -1) || (listeUserUserName[i].search(regex) != -1)){
+   					listeRetour.push(i)
+   				}
+   			}
+   		afficherUsers(listeRetour);
+   		}
+
+   		// Modification d'un utilisateur
+   		function modifUserfun(num){
+   			document.getElementById("userUserNameform1").value = listeUserUserName[num];
+   			document.getElementById("userNameform1").value = listeUserName[num];
+   			document.getElementById("userSurNameform1").value = listeUserSurname[num];
+   			document.getElementById("userDroitform1").value = listeUserDroit[num];
+   			document.getElementById("userIdform1").value = listeUserId[num];
+   			M.updateTextFields();
+   			M.Modal.getInstance(document.getElementById("modalModifUser")).open();
+   		}
+
+   		// Ajout d'un utilisateur
+   		function addUser() {
+   			M.Modal.getInstance(document.getElementById("modalModifUser")).open();
+   			
+   		}
+
+   		// Recherche initiale
+   		rechercheUserFun(document.getElementById("rechercheUserVal").value)
+
+	</script>
+</body>
+</html>

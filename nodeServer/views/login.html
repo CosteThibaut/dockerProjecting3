@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Login</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/login.css">
+</head>
+<body class="blue lighten-3">
+
+	<main class="row">
+		<div class="col m6 s12" id="left-part">
+			<img class="responsive-img" id="logo" src="img/logo.png">
+			<h1 class="grey-text center text-lighten-3">Connection</h1>
+			<h3 class="grey-text center text-lighten-3"> veuillez vous connecter</h3>
+		</div>
+   	<form class="col m6 s12 white" id="form-login">
+      <div class="input-field col m10 s12 offset-m1">
+      	<input id="userName" type="text" class="validate">
+      	<label for="userName">Nom d'utilisateur</label>
+      </div>
+      <div class="input-field col m10 s12 offset-m1">
+      	<input id="password" type="password" class="validate">
+      	<label for="password">Mot de passe</label>
+      </div>
+      <button class="btn waves-effect waves-light col offset-m1" onclick="connect()" type="submit" name="action">Se connecter</button>
+    </form>
+	</main>
+
+  <footer class="page-footer">
+    <div class="container">
+      <h5 class="white-text">Footer Content</h5>
+      <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+    </div>
+  </footer>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script type="text/javascript">
+    var socket = io.connect('http://localhost:8080');
+    function connect() {
+      var data;
+      data.username = document.getElementById("username").value;
+      data.pwd = document.getElementById("password").value;
+
+      socket.emit("connection", data);
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Projet</title>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/project.css">
+</head>
+<body>
+	<main class="row">
+		<div class="navbar-fixed">
+			<nav>
+			    <div class="nav-wrapper">
+			        <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+			      	<ul id="nav-mobile" class="left hide-on-med-and-down">
+			        	<li><a href="http://127.0.0.1:8080/">Accueil</a></li>
+			        	<li><a href="/Message">Messagerie<span class="new badge blue" data-badge-caption="">4</span></a></li>
+			        	<li class="active"><a href="/Project">Projets</a></li>
+			        	<li><a href="/Reunion">Réunions</a></li>
+			        	<% if(info[1]==1){%><li><a href="/Admin">Administrateur</a></li><%}%>
+			      	</ul>
+
+			      	<ul id="nav-mobile" class="right hide-on-med-and-down">
+			      		<li><%=info[2] %> <%= info[3]%></li>
+			        	<li><a href="/Setting"><i class="material-icons">settings</i></a></li>
+			        	<li><a href="/logout"><i class="material-icons">input</i></a></li>
+			      	</ul>
+			    </div>
+			</nav>
+		</div>
+
+		<!-- Navbar pour mobile -->
+		<ul class="sidenav" id="mobile-nav">
+	    	<li><a href="/">Accueil</a></li>
+	    	<li><a href="/Message">Messagerie<span class="new badge blue" data-badge-caption="">4</span></a></li>
+	    	<li class="active"><a href="/Project">Projets</a></li>
+	    	<li><a href="/Reunion">Réunions</a></li>
+	    	<% if(info[1]==1){%><li><a href="/Admin">Administrateur</a></li><%}%>
+	    	<li><a href="/Setting"><i class="material-icons">settings</i></a></li>
+	    	<li><a href="/logout"><i class="material-icons">input</i></a></li>
+	  	</ul>
+
+      	<div class="collection listeProjet container" id="listeProjet">
+        	<a href="#!" class="collection-item">Alvin</a>
+        	<a href="#!" class="collection-item">Alvin</a>
+        	<a href="#!" class="collection-item">Alvin</a>
+        	<a href="#!" class="collection-item">Alvin</a>
+      	</div>
+
+
+		<div class="fixed-action-btn">
+		 	<a class="btn-floating btn-large blue">
+		    	<i class="large material-icons">apps</i>
+		  	</a>
+		  	<ul>
+		    	<li><a class="btn-floating red"><i class="material-icons">add</i></a></li>
+		  	</ul>
+		</div>
+
+  	</main>
+
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+	<script type="text/javascript">
+   		M.AutoInit();
+		// La liste des projets de l'utilisateur
+		var listeProjectID=[0,1];
+		var listeProjectTitle=["Projet société Dupont","Travail management interne"];
+
+
+		// Affichage de la liste des projets de l'utilisateur
+		function afficheListeProjet() {
+			var listeHtml = "";
+			for (var i = 0; i < listeProjectTitle.length; i++) {
+				listeHtml=listeHtml+"<a href='project";
+				listeHtml=listeHtml+listeProjectID[i];
+				listeHtml=listeHtml+"' class='collection-item'>";
+				listeHtml=listeHtml+listeProjectTitle[i];
+				listeHtml=listeHtml+"</a>";
+			}
+			document.getElementById("listeProjet").innerHTML=listeHtml;
+		}
+
+		afficheListeProjet();
+	</script>
+
+</body>
+</html>
